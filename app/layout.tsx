@@ -1,29 +1,66 @@
-import { Geist, Geist_Mono, Inter } from "next/font/google"
+import type { Metadata, Viewport } from "next"
+import { cookies } from "next/headers"
+import { Noto_Sans_Arabic, Plus_Jakarta_Sans } from "next/font/google"
 
 import "./globals.css"
-import { ThemeProvider } from "@/components/theme-provider"
-import { cn } from "@/lib/utils";
+import { AppProviders } from "@/components/providers/app-providers"
+import { DIRECTION_COOKIE, type Direction } from "@/lib/direction"
+import { cn } from "@/lib/utils"
 
-const inter = Inter({subsets:['latin'],variable:'--font-sans'})
-
-const fontMono = Geist_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
+/** Same family + weights the mockup loads (400/500/600/700). */
+const plusJakartaSans = Plus_Jakarta_Sans({
+  subsets: ["latin", "latin-ext", "vietnamese", "cyrillic-ext"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-plus-jakarta",
+  display: "swap",
 })
 
-export default function RootLayout({
+/** Plus Jakarta Sans has no Arabic glyphs; this is the RTL fallback. */
+const notoSansArabic = Noto_Sans_Arabic({
+  subsets: ["arabic"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-arabic",
+  display: "swap",
+})
+
+export const metadata: Metadata = {
+  title: {
+    default: "WordAlive",
+    template: "%s · WordAlive",
+  },
+  description:
+    "Live scripture and song display for churches. Listen, follow, and show the right words on screen.",
+}
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f7f5f1" },
+    { media: "(prefers-color-scheme: dark)", color: "#0e1322" },
+  ],
+}
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const cookieStore = await cookies()
+  const direction: Direction =
+    cookieStore.get(DIRECTION_COOKIE)?.value === "rtl" ? "rtl" : "ltr"
+
   return (
     <html
       lang="en"
+      dir={direction}
       suppressHydrationWarning
-      className={cn("antialiased", fontMono.variable, "font-sans", inter.variable)}
+      className={cn(
+        plusJakartaSans.variable,
+        notoSansArabic.variable,
+        "font-sans antialiased"
+      )}
     >
       <body>
-        <ThemeProvider>{children}</ThemeProvider>
+        <AppProviders initialDirection={direction}>{children}</AppProviders>
       </body>
     </html>
   )

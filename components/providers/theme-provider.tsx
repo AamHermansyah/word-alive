@@ -13,6 +13,13 @@ function ThemeProvider({
       defaultTheme="system"
       enableSystem
       disableTransitionOnChange
+      // React 19.2+ logs "Encountered a script tag while rendering React
+      // component" for next-themes' anti-flicker <script> (pmndrs/next-themes
+      // #387). The server HTML keeps the executable script; on the client we
+      // mark it as a data block, which React does not warn about.
+      scriptProps={{
+        type: typeof window === "undefined" ? undefined : "application/json",
+      }}
       {...props}
     >
       <ThemeHotkey />

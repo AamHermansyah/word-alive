@@ -1,0 +1,66 @@
+"use client"
+
+import * as React from "react"
+
+import { SegmentedControl } from "@/components/molecules/segmented-control"
+import { PlanCard, type Billing } from "@/components/organisms/plan-card"
+import { Topbar } from "@/components/organisms/topbar"
+import {
+  BibleVersionsUsageCard,
+  TalkHoursCard,
+} from "@/components/organisms/usage-summary-cards"
+import {
+  BIBLE_VERSIONS,
+  BIBLE_VERSION_LIMIT,
+  PLANS,
+  TALK_HOURS,
+} from "@/lib/data/plans"
+
+/** Usage and plan: cycle usage summary, billing switch, three plan tiers. */
+function UsagePlanTemplate() {
+  const [billing, setBilling] = React.useState<Billing>("monthly")
+
+  return (
+    <>
+      <Topbar
+        title="Usage and plan"
+        subtitle="Talk hours reset every billing cycle"
+      >
+        <SegmentedControl
+          variant="outline"
+          label="Billing period"
+          value={billing}
+          onValueChange={setBilling}
+          options={[
+            { value: "monthly", label: "Monthly" },
+            { value: "annual", label: "Annual · 2 months free" },
+          ]}
+          className="order-last w-full justify-center sm:order-0 sm:w-fit"
+        />
+      </Topbar>
+
+      <div className="flex flex-col gap-5 md:flex-row">
+        <TalkHoursCard total={TALK_HOURS.total} used={TALK_HOURS.used} />
+        <BibleVersionsUsageCard
+          used={BIBLE_VERSIONS.filter((v) => v.inUse).length}
+          limit={BIBLE_VERSION_LIMIT}
+        />
+      </div>
+
+      <div className="flex flex-col gap-5 md:flex-row">
+        {PLANS.map((plan) => (
+          <PlanCard key={plan.id} plan={plan} billing={billing} />
+        ))}
+      </div>
+
+      <p className="text-xs text-muted-foreground">
+        <bdi>
+          A running service is never cut off. Bible versions depend on the
+          licences WordAlive holds.
+        </bdi>
+      </p>
+    </>
+  )
+}
+
+export { UsagePlanTemplate }
