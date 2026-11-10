@@ -66,7 +66,7 @@ function MicPanel({
           <div className="mt-3 flex w-full gap-3 xl:hidden">{stats}</div>
         </div>
 
-        <div className="mt-4 hidden w-full gap-3 xl:flex">{stats}</div>
+        <div className="mt-2 hidden w-full gap-3 xl:flex">{stats}</div>
       </CardContent>
     </Card>
   )
