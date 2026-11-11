@@ -69,9 +69,49 @@ export type Plan = {
   highlighted?: boolean
 }
 
+/** Bible translations are either public domain or licensed. */
+export type BibleRights = Extract<SongRights, "public-domain" | "licensed">
+
 export type BibleVersion = {
   code: string
   name: string
   language: string
+  rights: BibleRights
+  /** Currently switched on for the church. */
   inUse: boolean
+  /** Lowest plan that includes it; set only for versions the current plan lacks. */
+  requiresPlan?: "Growth"
 }
+
+export type AccountSettings = {
+  name: string
+  email: string
+  city: string
+  country: string
+  /** Church music licence number; optional, so it may be empty. */
+  licence: string
+}
+
+export type ColourSchemeId = "classic" | "light" | "high-contrast"
+
+export type ColourScheme = {
+  id: ColourSchemeId
+  label: string
+  /** Preview colours of the audience screen (background tiles), not theme tokens. */
+  swatches: [string, string]
+}
+
+export type PresentationSettings = {
+  language: string
+  /** Code of the default Bible version, e.g. "KJV". */
+  bibleVersion: string
+  scheme: ColourSchemeId
+}
+
+export type SettingsValues = {
+  account: AccountSettings
+  presentation: PresentationSettings
+  /** Selected microphone input device. */
+  microphone: string
+}
+

@@ -10,10 +10,12 @@ function SongTableCard({
   onAdd: (id: string) => void
 }) {
   return (
-    <Card className="min-w-0 gap-0 xl:h-117 xl:w-154 xl:shrink-0">
-      <CardContent className="flex min-h-0 flex-1 flex-col overflow-x-auto">
-        <div className="flex min-h-0 min-w-130 flex-1 flex-col">
-          <div className={`${SONG_GRID} pb-2.5 text-xs text-muted-foreground`}>
+    <Card className="min-w-0 gap-0 xl:flex-3">
+      <CardContent className="flex flex-1 flex-col">
+        <div className="flex flex-1 flex-col">
+          <div
+            className={`${SONG_GRID} hidden pb-2.5 text-xs text-muted-foreground md:grid`}
+          >
             <span>Song</span>
             <span>Language</span>
             <span>Rights</span>
@@ -22,7 +24,7 @@ function SongTableCard({
           </div>
 
           {songs.length > 0 ? (
-            <ul className="min-h-0 flex-1 overflow-y-auto">
+            <ul className="flex-1">
               {songs.map((song) => (
                 <SongRow key={song.id} song={song} onAdd={onAdd} />
               ))}

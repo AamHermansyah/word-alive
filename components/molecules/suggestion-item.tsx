@@ -19,8 +19,10 @@ function SuggestionItem({
 }) {
   if (expanded) {
     return (
-      <li className="mt-3.5 rounded-lg border border-border p-3 first:mt-3.5">
-        <div className="text-[15px] font-bold">{suggestion.reference}</div>
+      <li className="mt-3 rounded-lg border border-border p-3 first:mt-3 md:mt-3.5 md:first:mt-3.5">
+        <div className="text-sm font-bold md:text-[15px]">
+          {suggestion.reference}
+        </div>
         <div className="mt-0.5 mb-2.5 text-xs text-muted-foreground">
           <bdi>
             {suggestion.match}% match
@@ -47,7 +49,9 @@ function SuggestionItem({
   return (
     <li className={cn("mt-2.5 flex items-center gap-2")}>
       <div className="min-w-0 flex-1">
-        <div className="text-sm font-semibold">{suggestion.reference}</div>
+        <div className="text-[13px] font-semibold md:text-sm">
+          {suggestion.reference}
+        </div>
         <div className="text-xs text-muted-foreground">
           <bdi>{suggestion.match}% match</bdi>
         </div>

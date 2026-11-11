@@ -57,10 +57,15 @@ function NowShowingPanel({
         )}
       </CardHeader>
 
-      <CardContent className="flex flex-col gap-3.5 xl:flex-row xl:gap-5">
-        <ScreenPreview content={content} />
+      <CardContent className="flex flex-1 flex-col gap-3 md:gap-3.5 xl:flex-row xl:gap-5">
+        <div className="flex min-w-0 flex-1 flex-col gap-3">
+          <ScreenPreview content={content} />
+          <p className="text-xs text-muted-foreground">
+            <bdi>Text verified from the {version} database.</bdi>
+          </p>
+        </div>
 
-        <div className="flex gap-2 xl:flex-1 xl:flex-col">
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 md:flex md:flex-wrap xl:w-52 xl:shrink-0 xl:flex-col xl:flex-nowrap">
           <div className="hidden text-xs text-muted-foreground xl:block">
             Bible version
           </div>
@@ -71,7 +76,7 @@ function NowShowingPanel({
           >
             <SelectTrigger
               aria-label="Bible version"
-              className="w-21 xl:w-full"
+              className="col-span-2 w-full sm:col-span-1 md:w-21 xl:w-full"
             >
               <SelectValue />
             </SelectTrigger>
@@ -88,21 +93,21 @@ function NowShowingPanel({
 
           <Button
             variant="outline"
-            className="flex-1 px-0 xl:h-9 xl:flex-none xl:px-2"
+            className="flex-1 px-3 xl:h-9 xl:flex-none xl:px-2"
             onClick={onPrevious}
           >
             Previous verse
           </Button>
           <Button
             variant="outline"
-            className="flex-1 px-0 xl:h-9 xl:flex-none xl:px-2"
+            className="flex-1 px-3 xl:h-9 xl:flex-none xl:px-2"
             onClick={onNext}
           >
             Next verse
           </Button>
           <Button
             variant="outline"
-            className="flex-1 px-0 xl:h-9 xl:flex-none xl:px-2"
+            className="col-span-2 flex-1 px-3 sm:col-span-1 xl:h-9 xl:flex-none xl:px-2"
             onClick={onClear}
           >
             <span>
@@ -118,13 +123,9 @@ function NowShowingPanel({
               { value: "auto", label: "Auto" },
               { value: "manual", label: "Manual" },
             ]}
-            className="h-10 w-37.5 xl:h-9 xl:w-full"
+            className="col-span-2 h-10 w-full sm:col-span-4 md:w-37.5 xl:h-9 xl:w-full"
           />
         </div>
-      </CardContent>
-
-      <CardContent className="hidden text-xs text-muted-foreground xl:block">
-        <bdi>Text verified from the {version} database.</bdi>
       </CardContent>
     </Card>
   )

@@ -13,14 +13,16 @@ function SongFollowingCard({
   onSelectStanza: (stanzaId: string) => void
 }) {
   return (
-    <Card className="h-60 flex-1 gap-0 xl:h-62.5">
+    <Card className="min-w-0 flex-1 gap-0">
       <CardHeader className="flex items-center justify-between">
         <CardTitle>Song following</CardTitle>
         <Badge variant="info">{song.match}% match</Badge>
       </CardHeader>
 
       <CardContent>
-        <div className="mt-3.5 text-[15px] font-bold">{song.title}</div>
+        <div className="mt-3.5 text-sm font-bold md:text-[15px]">
+          {song.title}
+        </div>
         <div className="mt-0.5 mb-2.5 text-xs text-muted-foreground">
           {song.author} · {song.rights}
         </div>

@@ -41,7 +41,7 @@ function SegmentedControl<T extends string>({
         "box-border w-full p-0.75 text-[13px] font-semibold",
         variant === "soft" && "h-9 rounded-md bg-muted",
         variant === "outline" &&
-          "w-fit rounded-lg border border-input bg-card",
+          "w-fit max-w-full rounded-lg border border-input bg-card",
         className
       )}
     >
@@ -54,7 +54,7 @@ function SegmentedControl<T extends string>({
             variant === "soft" &&
               "flex-1 self-stretch rounded-sm! px-0! aria-pressed:bg-card aria-pressed:text-foreground aria-pressed:hover:bg-card",
             variant === "outline" &&
-              "self-stretch rounded-[9px]! px-4! py-2 text-xs aria-pressed:text-[13px] aria-pressed:bg-primary aria-pressed:text-primary-foreground aria-pressed:hover:bg-primary aria-pressed:hover:text-primary-foreground"
+              "shrink! self-stretch rounded-[9px]! px-4! py-2 text-center text-xs whitespace-normal aria-pressed:text-[13px] aria-pressed:bg-primary aria-pressed:text-primary-foreground aria-pressed:hover:bg-primary aria-pressed:hover:text-primary-foreground"
           )}
         >
           {option.label}

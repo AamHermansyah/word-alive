@@ -17,7 +17,7 @@ function StanzaRow({
       onClick={onSelect}
       aria-current={active ? "true" : undefined}
       className={cn(
-        "truncate rounded-sm px-2.5 py-2 text-start text-[13px] outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50",
+        "rounded-sm px-2.5 py-2 text-start text-xs leading-snug wrap-break-word outline-none md:text-[13px] focus-visible:ring-[3px] focus-visible:ring-ring/50",
         active ? "bg-info text-info-foreground" : "bg-background"
       )}
     >

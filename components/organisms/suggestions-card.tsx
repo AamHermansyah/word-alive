@@ -13,7 +13,7 @@ function SuggestionsCard({
   onDismiss: (id: string) => void
 }) {
   return (
-    <Card className="h-60 min-w-0 flex-1 gap-0 xl:h-62.5">
+    <Card className="min-w-0 flex-1 gap-0">
       <CardHeader className="flex items-center justify-between">
         <CardTitle>Suggestions</CardTitle>
         <Badge variant="secondary">{suggestions.length}</Badge>
@@ -33,7 +33,7 @@ function SuggestionsCard({
             ))}
           </ul>
         ) : (
-          <p className="mt-3.5 text-[13px] text-muted-foreground">
+          <p className="mt-3.5 text-xs text-muted-foreground md:text-[13px]">
             Listening for scripture references. Matches will appear here.
           </p>
         )}

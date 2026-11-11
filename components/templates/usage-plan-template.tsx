@@ -35,11 +35,11 @@ function UsagePlanTemplate() {
             { value: "monthly", label: "Monthly" },
             { value: "annual", label: "Annual · 2 months free" },
           ]}
-          className="order-last w-full justify-center sm:order-0 sm:w-fit"
+          className="w-full justify-center sm:w-fit"
         />
       </Topbar>
 
-      <div className="flex flex-col gap-5 md:flex-row">
+      <div className="flex flex-col gap-4 md:flex-row md:gap-5">
         <TalkHoursCard total={TALK_HOURS.total} used={TALK_HOURS.used} />
         <BibleVersionsUsageCard
           used={BIBLE_VERSIONS.filter((v) => v.inUse).length}
@@ -47,7 +47,7 @@ function UsagePlanTemplate() {
         />
       </div>
 
-      <div className="flex flex-col gap-5 md:flex-row">
+      <div className="flex flex-col gap-4 md:flex-row md:gap-5">
         {PLANS.map((plan) => (
           <PlanCard key={plan.id} plan={plan} billing={billing} />
         ))}

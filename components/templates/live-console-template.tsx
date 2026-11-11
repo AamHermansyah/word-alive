@@ -25,19 +25,19 @@ function LiveConsoleTemplate() {
       <Topbar title="Live console" subtitle="Sunday service · English">
         <Badge
           variant="success"
-          className="hidden px-3.5 py-1.75 text-[13px] sm:inline-flex xl:gap-2"
+          className="px-3 py-1.75 text-xs md:px-3.5 md:text-[13px] xl:gap-2"
         >
           <StatusDot className="hidden xl:inline-block" />
           <span className="xl:hidden">Audience connected</span>
           <span className="hidden xl:inline">Audience screen connected</span>
         </Badge>
-        <Button variant="outline">
+        <Button variant="outline" className="flex-1 sm:flex-none">
           <span className="xl:hidden">Audience screen</span>
           <span className="hidden xl:inline">Open audience screen</span>
         </Button>
       </Topbar>
 
-      <div className="flex flex-col gap-5 xl:h-106 xl:flex-row">
+      <div className="flex flex-col gap-4 md:gap-5 xl:flex-row">
         <MicPanel
           listening={live.listening}
           onToggle={live.toggleListening}
@@ -56,7 +56,7 @@ function LiveConsoleTemplate() {
         />
       </div>
 
-      <div className="flex flex-col gap-5 md:flex-row">
+      <div className="flex flex-col gap-4 md:flex-row md:gap-5">
         <SuggestionsCard
           suggestions={live.suggestions}
           onShow={live.showSuggestion}

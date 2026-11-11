@@ -33,6 +33,8 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
+  // `cover` lets the mobile tab bar use the safe-area insets (notch, home bar).
+  viewportFit: "cover",
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#f7f5f1" },
     { media: "(prefers-color-scheme: dark)", color: "#0e1322" },

@@ -60,14 +60,14 @@ function SongLibraryTemplate() {
     <>
       <Topbar title="Song library" subtitle={SONG_COUNT_LABEL} />
 
-      <div className="flex flex-wrap items-center gap-2.5">
+      <div className="flex flex-wrap items-center gap-2 md:gap-2.5">
         <Input
           type="search"
           aria-label="Search songs"
           placeholder="Search by title or a lyric line"
           value={query}
           onChange={(event) => setQuery(event.target.value)}
-          className="w-full sm:w-105"
+          className="w-full sm:w-105 sm:max-w-full"
         />
         <ChipGroup
           label="Filter by rights"
@@ -77,7 +77,7 @@ function SongLibraryTemplate() {
         />
       </div>
 
-      <div className="flex flex-col gap-5 xl:flex-row">
+      <div className="flex flex-col gap-4 md:gap-5 xl:flex-row">
         <SongTableCard songs={visible} onAdd={addToSet} />
         <AddSongCard onSubmit={submitSong} />
       </div>

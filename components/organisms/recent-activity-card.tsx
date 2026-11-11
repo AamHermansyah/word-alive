@@ -4,7 +4,7 @@ import type { ActivityItem } from "@/types"
 
 const KIND_LABEL = { scripture: "Scripture", song: "Song" } as const
 
-/** Desktop-only (the tablet layout drops this card, like the mockup). */
+/** Shown on phones and desktop; the tablet layout drops it, like the mockup. */
 function RecentActivityCard({
   items,
   onShowAgain,
@@ -13,7 +13,7 @@ function RecentActivityCard({
   onShowAgain: (item: ActivityItem) => void
 }) {
   return (
-    <Card className="hidden h-62.5 min-w-0 flex-1 gap-0 xl:flex">
+    <Card className="min-w-0 flex-1 gap-0 md:hidden xl:flex">
       <CardHeader className="mb-1.5">
         <CardTitle>Recent activity</CardTitle>
       </CardHeader>

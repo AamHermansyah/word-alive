@@ -22,13 +22,13 @@ function PlanCard({ plan, billing }: { plan: Plan; billing: Billing }) {
   return (
     <Card
       className={cn(
-        "min-w-0 flex-1 gap-0 xl:h-102.5",
+        "min-w-0 flex-1 gap-0",
         plan.highlighted && "border-2 border-brand-text"
       )}
     >
       <CardContent className="flex flex-1 flex-col">
-        <div className="flex h-6 items-center justify-between">
-          <span className="text-[17px] font-bold">{plan.name}</span>
+        <div className="flex min-h-6 flex-wrap items-center justify-between gap-x-2 gap-y-1">
+          <span className="text-base font-bold md:text-[17px]">{plan.name}</span>
           {plan.badge ? (
             <Badge variant={plan.badge.variant}>{plan.badge.label}</Badge>
           ) : null}
@@ -37,7 +37,7 @@ function PlanCard({ plan, billing }: { plan: Plan; billing: Billing }) {
         <div
           className={cn(
             "mt-3.5 font-bold",
-            price ? "text-[34px]" : "text-[26px]"
+            price ? "text-[28px] md:text-[34px]" : "text-[22px] xl:text-[26px]"
           )}
         >
           {price ?? "[YOUR PRICE]"}
@@ -46,7 +46,7 @@ function PlanCard({ plan, billing }: { plan: Plan; billing: Billing }) {
           per month, billed {billing === "annual" ? "yearly" : "monthly"}
         </div>
 
-        <ul className="border-t border-border pt-2.5">
+        <ul className="mb-5 border-t border-border pt-2.5">
           {plan.features.map((feature) => (
             <FeatureItem key={feature}>{feature}</FeatureItem>
           ))}

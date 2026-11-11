@@ -35,7 +35,7 @@ function ChipGroup<T extends string>({
           key={option.value}
           value={option.value}
           className={cn(
-            "h-auto min-w-0 rounded-full border border-input bg-card px-3.5 py-2 text-[13px] font-semibold text-foreground",
+            "h-auto min-w-0 rounded-full border border-input bg-card px-3 py-2 text-xs font-semibold md:px-3.5 md:text-[13px] text-foreground",
             "aria-pressed:border-0 aria-pressed:bg-primary aria-pressed:text-primary-foreground aria-pressed:hover:bg-primary aria-pressed:hover:text-primary-foreground"
           )}
         >

@@ -31,10 +31,10 @@ function AddSongCard({ onSubmit }: { onSubmit: (song: NewSong) => void }) {
   }
 
   return (
-    <Card className="min-w-0 flex-1 gap-0">
+    <Card className="min-w-0 flex-1 gap-0 xl:flex-2">
       <CardContent>
         <form onSubmit={handleSubmit}>
-          <div className="text-base font-bold">Add a song</div>
+          <div className="text-[15px] font-bold md:text-base">Add a song</div>
           <div className="mt-0.5 mb-3.5 text-xs text-muted-foreground">
             Share a song once. Other churches can find it too.
           </div>
@@ -60,14 +60,14 @@ function AddSongCard({ onSubmit }: { onSubmit: (song: NewSong) => void }) {
               id="song-lyrics"
               value={lyrics}
               onChange={(event) => setLyrics(event.target.value)}
-              className="h-26"
+              className="min-h-26"
             />
           </FormField>
           <div className="mt-1 mb-3 text-xs text-muted-foreground">
             Leave a blank line between stanzas.
           </div>
 
-          <Label className="items-start gap-2.5 rounded-md bg-background p-2.5 text-[13px] leading-normal font-normal">
+          <Label className="items-start gap-2.5 rounded-md bg-background p-2.5 text-xs leading-normal font-normal md:text-[13px]">
             <Checkbox
               checked={hasRights}
               onCheckedChange={(checked) => setHasRights(checked === true)}

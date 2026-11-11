@@ -6,11 +6,13 @@ function TalkHoursCard({ total, used }: { total: number; used: number }) {
   const percentUsed = Math.round((used / total) * 100)
 
   return (
-    <Card className="min-w-0 flex-[1.6] gap-0 px-5 xl:h-32.5">
+    <Card className="min-w-0 flex-[1.6] gap-0 px-5">
       <CardContent className="px-0">
         <CardTitle>Talk hours this cycle</CardTitle>
         <div className="mt-2 mb-3 flex flex-wrap items-baseline gap-2">
-          <span className="text-[30px] font-bold"><bdi>{total - used} hours left</bdi></span>
+          <span className="text-2xl font-bold md:text-[30px]">
+            <bdi>{total - used} hours left</bdi>
+          </span>
           <span className="text-xs text-muted-foreground">
             <bdi>
               {used} of {total} hours used
@@ -35,10 +37,10 @@ function BibleVersionsUsageCard({
   limit: number
 }) {
   return (
-    <Card className="min-w-0 flex-1 gap-0 px-5 xl:h-32.5">
+    <Card className="min-w-0 flex-1 gap-0 px-5">
       <CardContent className="px-0">
         <CardTitle>Bible versions</CardTitle>
-        <div className="mt-2 mb-1 text-[30px] font-bold">
+        <div className="mt-2 mb-1 text-2xl font-bold md:text-[30px]">
           <bdi>
             {used} of {limit}
           </bdi>

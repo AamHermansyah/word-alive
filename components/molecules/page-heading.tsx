@@ -12,9 +12,11 @@ function PageHeading({
 }) {
   return (
     <div className={cn("min-w-0 flex-1", className)}>
-      <h1 className="text-[26px] font-bold">{title}</h1>
+      <h1 className="text-xl font-bold md:text-[26px]">{title}</h1>
       {subtitle ? (
-        <p className="mt-0.5 text-[13px] text-muted-foreground">{subtitle}</p>
+        <p className="mt-0.5 text-xs text-muted-foreground md:text-[13px]">
+          {subtitle}
+        </p>
       ) : null}
     </div>
   )
