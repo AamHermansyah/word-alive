@@ -15,21 +15,30 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { NAV_GROUPS } from "@/lib/data/navigation"
+import { NAV_GROUPS, getPage } from "@/lib/data/navigation"
+import { cn } from "@/lib/utils"
 
 /**
  * Floating button at the bottom end of the screen. Opens a menu with every
  * page of the app, grouped by category, so any page can be reached in two
- * clicks. On phones it sits above the bottom tab bar.
+ * clicks. Rendered once in the root layout, so it is on every surface (app,
+ * sign-in flow, audience screen, admin, website). On phones it sits above the
+ * bottom tab bar, which only exists on the customer app surface.
  */
 function PageSwitcher() {
   const pathname = usePathname()
+  const hasTabBar = getPage(pathname)?.surface === "app"
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
         aria-label="All pages"
-        className="fixed inset-e-4 bottom-[calc(5rem+env(safe-area-inset-bottom))] z-50 flex size-12 items-center justify-center rounded-full bg-brand text-brand-foreground shadow-lg outline-none transition-transform hover:scale-105 focus-visible:ring-[3px] focus-visible:ring-ring/50 active:scale-95 md:inset-e-6 md:bottom-6"
+        className={cn(
+          "fixed inset-e-4 z-50 flex size-12 items-center justify-center rounded-full bg-brand text-brand-foreground shadow-lg outline-none transition-[transform,bottom] duration-200 hover:scale-105 focus-visible:ring-[3px] focus-visible:ring-ring/50 active:scale-95 md:inset-e-6 md:bottom-6",
+          hasTabBar
+            ? "bottom-[calc(5rem+env(safe-area-inset-bottom))]"
+            : "bottom-[calc(1rem+env(safe-area-inset-bottom))]"
+        )}
       >
         <LayoutGridIcon className="size-5" />
       </DropdownMenuTrigger>
@@ -40,15 +49,14 @@ function PageSwitcher() {
         sideOffset={10}
         className="w-64"
       >
-        {NAV_GROUPS.map(({ group, items }, index) => (
-          <React.Fragment key={group}>
+        {NAV_GROUPS.map(({ id, label, items }, index) => (
+          <React.Fragment key={id}>
             {index > 0 ? <DropdownMenuSeparator /> : null}
             <DropdownMenuGroup>
-              <DropdownMenuLabel>{group}</DropdownMenuLabel>
+              <DropdownMenuLabel>{label}</DropdownMenuLabel>
               {items.map((item) => {
                 const Icon = NAV_ICONS[item.key]
-                const active =
-                  pathname === item.href || pathname.startsWith(`${item.href}/`)
+                const active = pathname === item.href
 
                 return (
                   <DropdownMenuItem
@@ -61,17 +69,14 @@ function PageSwitcher() {
                     }
                     className={active ? "bg-accent font-semibold" : undefined}
                   >
-                    <Icon className="size-4" />
-                    <span className="min-w-0 flex-1 wrap-break-word">
-                      {item.label}
-                    </span>
-                    {active ? (
-                      <CheckIcon className="text-success" />
-                    ) : (
-                      <bdi className="text-xs text-muted-foreground">
+                    <Icon className="size-4 self-start mt-0.5" />
+                    <span className="flex min-w-0 flex-1 flex-col">
+                      <span className="wrap-break-word">{item.label}</span>
+                      <bdi className="text-xs font-normal wrap-break-word text-muted-foreground">
                         {item.href}
                       </bdi>
-                    )}
+                    </span>
+                    {active ? <CheckIcon className="text-success" /> : null}
                   </DropdownMenuItem>
                 )
               })}

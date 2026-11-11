@@ -1,6 +1,8 @@
 "use client"
 
 import * as React from "react"
+import Link from "next/link"
+import { toast } from "sonner"
 
 import { ChipGroup } from "@/components/molecules/chip-group"
 import {
@@ -9,6 +11,7 @@ import {
 } from "@/components/organisms/add-song-card"
 import { SongTableCard } from "@/components/organisms/song-table-card"
 import { Topbar } from "@/components/organisms/topbar"
+import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import {
   SONGS,
@@ -54,11 +57,23 @@ function SongLibraryTemplate() {
       },
       ...items,
     ])
+    toast.success("Song sent for review", {
+      description: "Other churches can find it once it is approved.",
+    })
   }
 
   return (
     <>
-      <Topbar title="Song library" subtitle={SONG_COUNT_LABEL} />
+      <Topbar title="Song library" subtitle={SONG_COUNT_LABEL}>
+        <Button
+          variant="outline"
+          nativeButton={false}
+          render={<Link href="/songs/mine" />}
+          className="flex-1 sm:flex-none"
+        >
+          My songs
+        </Button>
+      </Topbar>
 
       <div className="flex flex-wrap items-center gap-2 md:gap-2.5">
         <Input

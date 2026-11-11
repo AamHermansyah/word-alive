@@ -1,8 +1,7 @@
 import { BrandMark } from "@/components/atoms/brand-mark"
 import { NavItem } from "@/components/molecules/nav-item"
 import { SidebarPlanCard } from "@/components/molecules/sidebar-plan-card"
-import { NAV_ITEMS } from "@/lib/data/navigation"
-import { TALK_HOURS } from "@/lib/data/plans"
+import { PRIMARY_NAV_ITEMS } from "@/lib/data/navigation"
 
 /**
  * Primary navigation.
@@ -22,10 +21,11 @@ function AppSidebar() {
         aria-label="Main"
         className="flex w-full items-stretch justify-between gap-1 py-1.5 md:w-auto md:flex-col md:items-center md:justify-start md:gap-2 md:py-0 xl:items-stretch xl:gap-1"
       >
-        {NAV_ITEMS.map((item) => (
+        {PRIMARY_NAV_ITEMS.map((item) => (
           <NavItem
             key={item.key}
             href={item.href}
+            trialHref={item.trialHref}
             label={item.label}
             shortLabel={item.shortLabel}
             navKey={item.key}
@@ -34,11 +34,7 @@ function AppSidebar() {
       </nav>
 
       <div className="hidden xl:contents">
-        <SidebarPlanCard
-          planName="Starter plan"
-          hoursLeft={TALK_HOURS.total - TALK_HOURS.used}
-          hoursTotal={TALK_HOURS.total}
-        />
+        <SidebarPlanCard />
       </div>
     </aside>
   )

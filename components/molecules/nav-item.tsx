@@ -5,7 +5,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 
 import { NAV_ICONS } from "@/components/atoms/icons"
-import type { NavKey } from "@/lib/data/navigation"
+import { getActiveKey, getPage, type NavKey } from "@/lib/data/navigation"
 import { cn } from "@/lib/utils"
 
 /**
@@ -16,22 +16,27 @@ import { cn } from "@/lib/utils"
  */
 function NavItem({
   href,
+  trialHref,
   label,
   shortLabel,
   navKey,
 }: {
   href: string
+  /** Used instead of `href` while a free-trial page is open. */
+  trialHref?: string
   label: string
   shortLabel: string
   navKey: NavKey
 }) {
   const Icon = NAV_ICONS[navKey]
   const pathname = usePathname()
-  const active = pathname === href || pathname.startsWith(`${href}/`)
+  const active = getActiveKey(pathname) === navKey
+  const target =
+    trialHref && getPage(pathname)?.plan === "trial" ? trialHref : href
 
   return (
     <Link
-      href={href}
+      href={target}
       aria-label={label}
       title={label}
       aria-current={active ? "page" : undefined}

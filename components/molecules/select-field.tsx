@@ -27,6 +27,7 @@ function SelectField({
   return (
     <FormField label={label} htmlFor={id} className={className}>
       <Select
+        items={options.map((option) => ({ value: option, label: option }))}
         value={value}
         onValueChange={(next) => next && onValueChange(next)}
       >

@@ -1,6 +1,9 @@
+import Link from "next/link"
+
 import { CheckMarkIcon } from "@/components/atoms/icons"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import { hasSongDetail } from "@/lib/data/account"
 import { RIGHTS_LABEL, RIGHTS_VARIANT } from "@/lib/data/songs"
 import type { Song } from "@/types"
 
@@ -13,13 +16,22 @@ export const SONG_GRID =
  * details); from `md` the details join the shared table columns.
  */
 function SongRow({ song, onAdd }: { song: Song; onAdd: (id: string) => void }) {
+  // A song added this session has no page yet; its review status lives in "My songs".
+  const detailHref = hasSongDetail(song.id) ? `/songs/${song.id}` : null
+
   return (
     <li
-      className={`${SONG_GRID} grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-3 gap-y-1.5 border-t border-border py-3 first:border-t-0 md:py-2.75 md:first:border-t`}
+      className={`${SONG_GRID} grid grid-cols-[minmax(0,1fr)_fit-content(45%)] items-center gap-x-3 gap-y-1.5 border-t border-border py-3 first:border-t-0 md:py-2.75 md:first:border-t`}
     >
       <div className="min-w-0">
         <div className="text-[13px] font-bold wrap-break-word md:text-sm">
-          {song.title}
+          {detailHref ? (
+            <Link href={detailHref} className="hover:underline">
+              {song.title}
+            </Link>
+          ) : (
+            song.title
+          )}
         </div>
         <div className="text-xs text-muted-foreground wrap-break-word">
           {song.author}
@@ -45,6 +57,8 @@ function SongRow({ song, onAdd }: { song: Song; onAdd: (id: string) => void }) {
         ) : song.rights === "in-review" ? (
           <Button
             variant="link"
+            nativeButton={false}
+            render={<Link href={detailHref ?? "/songs/mine"} />}
             className="h-auto px-0 py-2 text-xs text-brand-text hover:no-underline md:text-[13px]"
           >
             View

@@ -1,4 +1,47 @@
 import * as React from "react"
+import {
+  ArrowLeftRightIcon,
+  BadgeCheckIcon,
+  BookOpenTextIcon,
+  CircleAlertIcon,
+  ClockIcon,
+  CpuIcon,
+  CreditCardIcon,
+  FileTextIcon,
+  FileXIcon,
+  GlobeIcon,
+  HistoryIcon,
+  HouseIcon,
+  InboxIcon,
+  KeyRoundIcon,
+  LanguagesIcon,
+  LayoutDashboardIcon,
+  Link2Icon,
+  ListChecksIcon,
+  LogInIcon,
+  MailCheckIcon,
+  MicOffIcon,
+  ReceiptIcon,
+  ScaleIcon,
+  SearchIcon,
+  ShieldCheckIcon,
+  SmartphoneIcon,
+  SparklesIcon,
+  TagIcon,
+  TextQuoteIcon,
+  TriangleAlertIcon,
+  UserPlusIcon,
+  UsersIcon,
+  ActivityIcon,
+  DatabaseIcon,
+  HourglassIcon,
+  Trash2Icon,
+  FileCheckIcon,
+  MusicIcon as LucideMusicIcon,
+  type LucideIcon,
+} from "lucide-react"
+
+import type { NavKey } from "@/lib/data/navigation"
 
 import { cn } from "@/lib/utils"
 
@@ -83,10 +126,67 @@ export function CheckMarkIcon(props: IconProps) {
   )
 }
 
-export const NAV_ICONS = {
+type NavIcon = LucideIcon | ((props: IconProps) => React.JSX.Element)
+
+/**
+ * Icon for every registered page (NavKey), used by the sidebar, the phone tab
+ * bar, the admin sidebar and the floating page switcher. The five primary
+ * pages use the mockup's own icons; everything else uses lucide.
+ * Typed as Record<NavKey, …> so a page added to NAV_ITEMS cannot ship without one.
+ */
+export const NAV_ICONS: Record<NavKey, NavIcon> = {
   live: MicIcon,
+  "live-trial": SparklesIcon,
+  "live-first-run": MicOffIcon,
+  "live-warnings": TriangleAlertIcon,
+  history: HistoryIcon,
+  "audience-link": Link2Icon,
   songs: MusicIcon,
+  "song-detail": TextQuoteIcon,
+  "my-songs": LucideMusicIcon,
   bible: BookIcon,
+  "bible-trial": SparklesIcon,
   usage: GaugeIcon,
+  billing: ReceiptIcon,
   settings: SettingsIcon,
-} as const
+  data: Trash2Icon,
+  "terms-update": FileCheckIcon,
+  "sign-in": LogInIcon,
+  setup: UserPlusIcon,
+  "confirm-email": MailCheckIcon,
+  "trial-started": SparklesIcon,
+  "trial-ended": HourglassIcon,
+  plan: CreditCardIcon,
+  "payment-result": BadgeCheckIcon,
+  "account-status": CircleAlertIcon,
+  "switch-device": ArrowLeftRightIcon,
+  "switch-unavailable": SmartphoneIcon,
+  "present-scripture": BookOpenTextIcon,
+  "present-lyrics": TextQuoteIcon,
+  "present-waiting": ClockIcon,
+  "admin-login": KeyRoundIcon,
+  "admin-2fa": ShieldCheckIcon,
+  "admin-overview": LayoutDashboardIcon,
+  "admin-users": UsersIcon,
+  "admin-payments": CreditCardIcon,
+  "admin-payment-override": BadgeCheckIcon,
+  "admin-support": InboxIcon,
+  "admin-pricing": TagIcon,
+  "admin-coverage": GlobeIcon,
+  "admin-bible": BookIcon,
+  "admin-bible-source": DatabaseIcon,
+  "admin-songs": MusicIcon,
+  "admin-takedowns": ScaleIcon,
+  "admin-seo": SearchIcon,
+  "admin-legal": FileTextIcon,
+  "admin-ai": CpuIcon,
+  "admin-languages": LanguagesIcon,
+  "admin-health": ActivityIcon,
+  "admin-audit": ListChecksIcon,
+  "admin-team": ShieldCheckIcon,
+  home: HouseIcon,
+  privacy: ShieldCheckIcon,
+  terms: FileTextIcon,
+  refund: ReceiptIcon,
+  "not-found": FileXIcon,
+}

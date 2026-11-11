@@ -10,14 +10,31 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { NEW_SONG_DEFAULTS } from "@/lib/data/songs"
+import { cn } from "@/lib/utils"
 
 export type NewSong = { title: string; language: string; lyrics: string }
 
-/** "Add a song" form. Submitting sends the song to the (mock) review queue. */
-function AddSongCard({ onSubmit }: { onSubmit: (song: NewSong) => void }) {
-  const [title, setTitle] = React.useState(NEW_SONG_DEFAULTS.title)
-  const [language, setLanguage] = React.useState(NEW_SONG_DEFAULTS.language)
-  const [lyrics, setLyrics] = React.useState(NEW_SONG_DEFAULTS.lyrics)
+/**
+ * "Add a song" form. Submitting sends the song to the (mock) review queue.
+ * `initial` pre-fills the fields (the library shows the mockup's sample song;
+ * the "My songs" dialog starts blank or with the song being edited).
+ */
+function AddSongCard({
+  onSubmit,
+  initial = NEW_SONG_DEFAULTS,
+  heading = "Add a song",
+  submitLabel = "Submit for review",
+  className,
+}: {
+  onSubmit: (song: NewSong) => void
+  initial?: NewSong
+  heading?: string
+  submitLabel?: string
+  className?: string
+}) {
+  const [title, setTitle] = React.useState(initial.title)
+  const [language, setLanguage] = React.useState(initial.language)
+  const [lyrics, setLyrics] = React.useState(initial.lyrics)
   const [hasRights, setHasRights] = React.useState(true)
 
   const canSubmit = title.trim() !== "" && lyrics.trim() !== "" && hasRights
@@ -31,10 +48,10 @@ function AddSongCard({ onSubmit }: { onSubmit: (song: NewSong) => void }) {
   }
 
   return (
-    <Card className="min-w-0 flex-1 gap-0 xl:flex-2">
+    <Card className={cn("min-w-0 flex-1 gap-0 xl:flex-2", className)}>
       <CardContent>
         <form onSubmit={handleSubmit}>
-          <div className="text-[15px] font-bold md:text-base">Add a song</div>
+          <div className="text-[15px] font-bold md:text-base">{heading}</div>
           <div className="mt-0.5 mb-3.5 text-xs text-muted-foreground">
             Share a song once. Other churches can find it too.
           </div>
@@ -83,7 +100,7 @@ function AddSongCard({ onSubmit }: { onSubmit: (song: NewSong) => void }) {
           </div>
 
           <Button type="submit" size="lg" className="w-full" disabled={!canSubmit}>
-            Submit for review
+            {submitLabel}
           </Button>
         </form>
       </CardContent>

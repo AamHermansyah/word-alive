@@ -93,7 +93,7 @@ function SettingsTemplate() {
         <DeviceCard />
       </div>
 
-      <PrivacyCard onDelete={() => undefined} />
+      <PrivacyCard />
     </>
   )
 }

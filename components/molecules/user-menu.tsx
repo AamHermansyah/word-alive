@@ -97,6 +97,15 @@ function UserMenu() {
           <DropdownMenuItem render={<Link href="/settings" />}>
             Settings
           </DropdownMenuItem>
+          <DropdownMenuItem render={<Link href="/history" />}>
+            Service history
+          </DropdownMenuItem>
+          <DropdownMenuItem render={<Link href="/billing" />}>
+            Billing and receipts
+          </DropdownMenuItem>
+          <DropdownMenuItem render={<Link href="/sign-in" />}>
+            Sign out
+          </DropdownMenuItem>
         </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>

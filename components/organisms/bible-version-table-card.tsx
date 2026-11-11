@@ -6,13 +6,14 @@ import { Card, CardContent } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
 import type { BibleVersion } from "@/types"
 
-/** Table of every Bible version: which are in use, the default, and the locked ones. */
+/** Table of every Bible version: which are in use, the default, and the locked ones (a plan limit or the free trial). */
 function BibleVersionTableCard({
   versions,
   inUse,
   defaultCode,
   atLimit,
-  onToggle,
+  onToggle = () => undefined,
+  lockedAction,
   className,
 }: {
   versions: BibleVersion[]
@@ -21,7 +22,10 @@ function BibleVersionTableCard({
   defaultCode: string
   /** The plan's version limit is reached, so no more can be switched on. */
   atLimit: boolean
-  onToggle: (code: string, on: boolean) => void
+  /** Omit when no version can be switched (the free trial). */
+  onToggle?: (code: string, on: boolean) => void
+  /** Free trial: versions that are not in use link here instead of showing a switch. */
+  lockedAction?: { label: string; href: string }
   className?: string
 }) {
   return (
@@ -47,6 +51,7 @@ function BibleVersionTableCard({
                 checked={checked}
                 disabled={!checked && atLimit}
                 onCheckedChange={(on) => onToggle(version.code, on)}
+                lockedAction={lockedAction}
               />
             )
           })}

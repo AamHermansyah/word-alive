@@ -1,8 +1,10 @@
+import Link from "next/link"
+
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardTitle } from "@/components/ui/card"
 
-/** The privacy promise and the way to delete the church's data. */
-function PrivacyCard({ onDelete }: { onDelete: () => void }) {
+/** The privacy promise and the way to export or delete the church's data. */
+function PrivacyCard() {
   return (
     <Card className="min-w-0 gap-0">
       <CardContent className="flex flex-wrap items-center justify-between gap-x-4 gap-y-3">
@@ -16,8 +18,9 @@ function PrivacyCard({ onDelete }: { onDelete: () => void }) {
         </div>
         <Button
           variant="outline"
+          nativeButton={false}
+          render={<Link href="/settings/data" />}
           className="w-full text-destructive hover:text-destructive sm:w-auto"
-          onClick={onDelete}
         >
           Delete my data
         </Button>

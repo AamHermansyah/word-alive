@@ -27,8 +27,13 @@ function nowLabel() {
   return `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`
 }
 
-/** Mock state for the live console. No backend: everything is local. */
-function useLiveConsole() {
+/**
+ * Mock state for the live console. No backend: everything is local.
+ * `hoursLeft` is the "Hours left" figure; the free trial passes its own.
+ */
+function useLiveConsole({
+  hoursLeft = `${TALK_HOURS.total - TALK_HOURS.used} h`,
+}: { hoursLeft?: string } = {}) {
   const [listening, setListening] = React.useState(true)
   const [seconds, setSeconds] = React.useState(START_SECONDS)
   const [content, setContent] = React.useState<ScreenContent | null>(
@@ -120,7 +125,7 @@ function useLiveConsole() {
     listening,
     toggleListening: () => setListening((value) => !value),
     elapsed: formatClock(seconds),
-    hoursLeft: `${TALK_HOURS.total - TALK_HOURS.used} h`,
+    hoursLeft,
     content,
     version,
     changeVersion,

@@ -1,3 +1,5 @@
+import Link from "next/link"
+
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardTitle } from "@/components/ui/card"
@@ -23,9 +25,17 @@ function DeviceCard() {
         </div>
 
         <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2">
-          <Button variant="outline">Switch device</Button>
+          <Button
+            variant="outline"
+            nativeButton={false}
+            render={<Link href="/switch-device" />}
+          >
+            Switch device
+          </Button>
           <Button
             variant="link"
+            nativeButton={false}
+            render={<Link href="/switch-device/unavailable" />}
             className="h-auto px-0 py-2 text-xs text-foreground"
           >
             Lost or broken?

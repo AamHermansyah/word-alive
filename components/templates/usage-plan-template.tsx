@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import Link from "next/link"
 
 import { SegmentedControl } from "@/components/molecules/segmented-control"
 import { PlanCard, type Billing } from "@/components/organisms/plan-card"
@@ -53,12 +54,20 @@ function UsagePlanTemplate() {
         ))}
       </div>
 
-      <p className="text-xs text-muted-foreground">
-        <bdi>
-          A running service is never cut off. Bible versions depend on the
-          licences WordAlive holds.
-        </bdi>
-      </p>
+      <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
+        <p className="min-w-0 text-xs text-muted-foreground">
+          <bdi>
+            A running service is never cut off. Bible versions depend on the
+            licences WordAlive holds.
+          </bdi>
+        </p>
+        <Link
+          href="/billing"
+          className="py-2 text-[13px] font-semibold text-brand-text no-underline hover:underline"
+        >
+          Billing and receipts
+        </Link>
+      </div>
     </>
   )
 }

@@ -1,3 +1,5 @@
+import Link from "next/link"
+
 import { FeatureItem } from "@/components/molecules/feature-item"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -55,6 +57,8 @@ function PlanCard({ plan, billing }: { plan: Plan; billing: Billing }) {
         <Button
           size="lg"
           variant={plan.highlighted ? "default" : "outline"}
+          nativeButton={false}
+          render={<Link href={`/plan?plan=${plan.id}`} />}
           className="mt-auto"
         >
           {plan.cta}

@@ -1,3 +1,5 @@
+import Link from "next/link"
+
 import { Badge } from "@/components/ui/badge"
 import { Switch } from "@/components/ui/switch"
 import { RIGHTS_LABEL, RIGHTS_VARIANT } from "@/lib/data/songs"
@@ -16,8 +18,9 @@ export const BIBLE_GRID =
  * the left, status control on the end); from `md` the cells join the shared
  * table columns.
  *
- * Status: the default version shows a "Default" badge, a version the plan
- * lacks shows its plan, anything else is a switch.
+ * Status: the default version shows a "Default" badge; with `lockedAction`
+ * (the free trial) every other version is a link to the plan page instead;
+ * a version the plan lacks shows its plan, anything else is a switch.
  */
 function BibleVersionRow({
   version,
@@ -25,6 +28,7 @@ function BibleVersionRow({
   checked,
   disabled,
   onCheckedChange,
+  lockedAction,
 }: {
   version: BibleVersion
   isDefault: boolean
@@ -32,10 +36,12 @@ function BibleVersionRow({
   /** The switch cannot be turned on (the plan's limit is reached). */
   disabled: boolean
   onCheckedChange: (checked: boolean) => void
+  /** Replaces the switch with a link (e.g. "Choose a plan" during the trial). */
+  lockedAction?: { label: string; href: string }
 }) {
   return (
     <li
-      className={`${BIBLE_GRID} grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-x-3 gap-y-1.5 border-t border-border py-3 first:border-t-0 md:py-2.5 md:first:border-t`}
+      className={`${BIBLE_GRID} grid grid-cols-[auto_minmax(0,1fr)_fit-content(40%)] items-center gap-x-3 gap-y-1.5 border-t border-border py-3 first:border-t-0 md:py-2.5 md:first:border-t`}
     >
       <div
         aria-hidden="true"
@@ -60,8 +66,18 @@ function BibleVersionRow({
       <div className="col-start-3 row-span-2 row-start-1 flex justify-end md:col-auto md:row-auto md:row-start-auto">
         {isDefault ? (
           <Badge variant="brand">Default</Badge>
+        ) : lockedAction ? (
+          <Badge
+            variant="neutral"
+            render={<Link href={lockedAction.href} />}
+            className="min-h-10 max-w-20 text-center wrap-anywhere outline-none hover:text-foreground sm:max-w-none md:min-h-0"
+          >
+            {lockedAction.label}
+          </Badge>
         ) : version.requiresPlan ? (
-          <Badge variant="neutral">{version.requiresPlan} plan</Badge>
+          <Badge variant="neutral" className="wrap-anywhere">
+            {version.requiresPlan} plan
+          </Badge>
         ) : (
           <Switch
             size="lg"

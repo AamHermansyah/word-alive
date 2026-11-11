@@ -71,3 +71,14 @@ export const DEFAULT_BIBLE_VERSION = "KJV"
 export const UPGRADE_BIBLE_VERSIONS = 15
 
 export const BIBLE_VERSION_LIMIT = 5
+
+/** Free trial allowance shown on trial pages (7 days, 1 hour, 1 Bible version). */
+export const TRIAL = {
+  days: 7,
+  daysLeft: 5,
+  hoursTotal: 1,
+  hoursLeft: 0.6,
+  bibleVersions: 1,
+  /** Last day of the trial, as printed on the "Free trial started" page. */
+  endsOn: "Nov 14",
+}

@@ -45,6 +45,10 @@
     --color-sidebar-primary: var(--sidebar-primary);
     --color-sidebar-foreground: var(--sidebar-foreground);
     --color-sidebar: var(--sidebar);
+    --color-sidebar-muted: var(--sidebar-muted);
+    --color-navy: var(--navy);
+    --color-navy-foreground: var(--navy-foreground);
+    --color-navy-muted: var(--navy-muted);
     --color-chart-5: var(--chart-5);
     --color-chart-4: var(--chart-4);
     --color-chart-3: var(--chart-3);
@@ -83,6 +87,8 @@
     --color-info-foreground: var(--info-foreground);
     --color-info-soft: var(--info-soft);
     --color-info-soft-foreground: var(--info-soft-foreground);
+    --color-danger-soft: var(--danger-soft);
+    --color-danger-soft-foreground: var(--danger-soft-foreground);
     --color-warning-soft: var(--warning-soft);
     --color-warning-soft-foreground: var(--warning-soft-foreground);
 
@@ -133,6 +139,12 @@
     --sidebar-accent-foreground: #1b2340;
     --sidebar-border: #e7e2da;
     --sidebar-ring: #8a90a8;
+    --sidebar-muted: #8a90a8;
+
+    /* Dark navy panels that stay dark in both themes (website footer). */
+    --navy: #1b2340;
+    --navy-foreground: #ffffff;
+    --navy-muted: #c9cddb;
 
     --brand: #7a1f2b;
     --brand-foreground: #ffffff;
@@ -149,6 +161,9 @@
     --info-foreground: #ffffff;
     --info-soft: #dce6f5;
     --info-soft-foreground: #14284b;
+
+    --danger-soft: #f7d9d6;
+    --danger-soft-foreground: #7a1a12;
 
     --warning-soft: #f4e7cc;
     --warning-soft-foreground: #5c3d06;
@@ -188,6 +203,11 @@
     --sidebar-accent-foreground: #f1efea;
     --sidebar-border: #272e48;
     --sidebar-ring: #6b7396;
+    --sidebar-muted: #8a90a8;
+
+    --navy: #131830;
+    --navy-foreground: #ffffff;
+    --navy-muted: #b4b9d0;
 
     --brand: #8f2a3b;
     --brand-foreground: #ffffff;
@@ -205,6 +225,9 @@
     --info-soft: #1d2b4d;
     --info-soft-foreground: #c3d5f6;
 
+    --danger-soft: #3d1b1a;
+    --danger-soft-foreground: #f6b3ad;
+
     --warning-soft: #3b2f14;
     --warning-soft-foreground: #f1d38e;
 }
@@ -220,6 +243,14 @@
     }
     body {
         @apply bg-background font-sans text-foreground antialiased;
+        /* Dynamic data (names, emails, ids) can contain long unbroken strings:
+           let every text container break them instead of overflowing. */
+        overflow-wrap: break-word;
+    }
+    /* <bdi> wraps user data in many places; `anywhere` also lets it shrink
+       inside flex rows, where `break-word` alone would not. */
+    bdi {
+        overflow-wrap: anywhere;
     }
 }
 
@@ -231,5 +262,91 @@
     }
     50% {
         transform: scaleY(0.45);
+    }
+}
+
+/*
+ * Admin console: the sidebar is always the dark navy panel from the mockup,
+ * in light and dark mode alike. Scoped to the admin shell so the customer
+ * sidebar keeps its own tokens.
+ */
+.admin-surface {
+    --sidebar: #1b2340;
+    --sidebar-foreground: #c9cddb;
+    --sidebar-muted: #9aa1ba;
+    --sidebar-accent: rgb(255 255 255 / 0.14);
+    --sidebar-accent-foreground: #ffffff;
+    --sidebar-border: rgb(255 255 255 / 0.14);
+    --sidebar-ring: #8a90a8;
+}
+
+/*
+ * Page transitions (React <ViewTransition>, see components/templates/
+ * page-transition.tsx). The old page fades out fast, the new one rises in
+ * slightly slower, so the swap reads as one soft motion instead of a cut.
+ */
+:root {
+    --wa-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+::view-transition-old(.page-out) {
+    animation: 140ms ease-in both wa-page-out;
+}
+
+::view-transition-new(.page-in) {
+    animation: 280ms var(--wa-ease) 60ms both wa-page-in;
+}
+
+@keyframes wa-page-out {
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes wa-page-in {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* Let clicks reach the live page while a transition is running. */
+::view-transition {
+    pointer-events: none;
+}
+
+/* Smooth in-page colour / opacity changes for interactive elements. */
+@layer base {
+    a,
+    button,
+    [role="button"],
+    input,
+    textarea,
+    select {
+        transition-property: color, background-color, border-color, opacity,
+            box-shadow, transform;
+        transition-duration: 150ms;
+        transition-timing-function: ease;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    ::view-transition-old(*),
+    ::view-transition-new(*),
+    ::view-transition-group(*) {
+        animation-duration: 0s !important;
+        animation-delay: 0s !important;
+    }
+    *,
+    ::before,
+    ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
     }
 }
